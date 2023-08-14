@@ -81,10 +81,7 @@ const mostrarCarrito = () => {
 		<td>${producto.title}</td>
 		<td>$${producto.precio}</td>
 		<td><div class="counter">
-		  <button id="decrementar-${producto.id}" class="button">-</button>
-		  <span class="product-price">${producto.cantidad}</span>
-		  <button id="incrementar-${producto.id}" class="button">+</button>
-		  </div></td>
+		  
 		<td>$${producto.precio*producto.cantidad}</td>
 	</tr>
 	
