@@ -50,9 +50,7 @@ const agregarAlCarrito = (id) => {
 const mostrarCarrito = () => {
 	const contenedorCarrito = document.querySelector(".contendor-carrito");
 	contenedorCarrito.innerHTML="";
-	const contenedorCarrito1 = document.querySelector(".contendor-carrito1");
-	contenedorCarrito1.innerHTML="";
-	
+
 	const vacioContenedor =document.querySelector(".vacio")
 	vacioContenedor.innerHTML="";
 	const contenedorBoton = document.querySelector(".boton-total");
@@ -79,13 +77,8 @@ const mostrarCarrito = () => {
 		<td>$${producto.precio*producto.cantidad}</td>
 	</tr>
     `;
-	const tr1 = document.createElement("tr");
-		tr1.innerHTML=
-		`
-		
-	
-    `;
-	contenedorCarrito1.appendChild(tr1)
+
+    
 	contenedorCarrito.appendChild(tr)
 
 	const incrementar =document.getElementById(`incrementar-${producto.id}`);
