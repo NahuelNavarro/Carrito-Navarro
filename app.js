@@ -29,10 +29,16 @@ const pintarCards = (productos) =>{
 const agregarAlCarrito = (id) => {
 	if (!carrito.some((producto) => producto.id === id)) {
 		const producto = productos.find((producto) => producto.id === id);
-		carrito.push({ ...producto, cantidad: 1 });
-	} else {
-		const producto = carrito.find((producto) => producto.id === id);
-		producto.cantidad++;
+		carrito.push({ ...producto, cantidad: 0 });
+	} 	const producto = carrito.find((prod) => prod.id === id);
+
+	if(producto.cantidad >= producto.stock){
+		Swal.fire({
+			title: 'No hay mas en stock',
+			icon: 'error',
+			confirmButtonText: 'OK'})
+	}else{
+		producto.cantidad++
 	}
 	localStorage.setItem("carrito", JSON.stringify(carrito));
 	mostrarCarrito();
@@ -76,14 +82,7 @@ const mostrarCarrito = () => {
 	const tr1 = document.createElement("tr");
 		tr1.innerHTML=
 		`
-		<tr>
-		<th scope="row"><img src="${producto.imagen}" alt=""></th>
-		<td>${producto.title}</td>
-		<td>$${producto.precio}</td>
-		<td><div class="counter">
-		  
-		<td>$${producto.precio*producto.cantidad}</td>
-	</tr>
+		
 	
     `;
 	contenedorCarrito1.appendChild(tr1)
@@ -130,7 +129,7 @@ const mostrarCarrito = () => {
 const incrementarProducto = (id) => {
 	const producto = carrito.find((prod) => prod.id === id);
 
-	if(producto.cantidad > producto.stock){
+	if(producto.cantidad >= producto.stock){
 		Swal.fire({
 			title: 'No hay mas en stock',
 			icon: 'error',
