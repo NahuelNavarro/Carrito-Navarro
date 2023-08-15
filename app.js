@@ -82,17 +82,6 @@ const mostrarCarrito = () => {
 	const tr1 = document.createElement("tr");
 		tr1.innerHTML=
 		`
-		<tr>
-		<th scope="row"><img src="${producto.imagen}" alt=""></th>
-		<td>${producto.title}</td>
-		<td>$${producto.precio}</td>
-		<td><div class="counter">
-		  <button id="decrementar-${producto.id}" class="button">-</button>
-		  <span class="product-price">${producto.cantidad}</span>
-		  <button id="incrementar-${producto.id}" class="button">+</button>
-		  </div></td>
-		<td>$${producto.precio*producto.cantidad}</td>
-	</tr>
 		
 	
     `;
