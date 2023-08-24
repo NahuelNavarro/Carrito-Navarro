@@ -19,14 +19,14 @@ const pintarCards = (productos) =>{
 
 		const boton = document.getElementById(`${producto.id}`);
 		boton.addEventListener("click",() => {
-			agregarAlCarrito(producto.id)
+			agregarAlCarrito(productos,producto.id);
 		})
 		
 	});
 	
 };
 
-const agregarAlCarrito = (id) => {
+const agregarAlCarrito = (productos,id) => {
 	if (!carrito.some((producto) => producto.id === id)) {
 		const producto = productos.find((producto) => producto.id === id);
 		carrito.push({ ...producto, cantidad: 0 });
@@ -50,7 +50,6 @@ const agregarAlCarrito = (id) => {
 const mostrarCarrito = () => {
 	const contenedorCarrito = document.querySelector(".contendor-carrito");
 	contenedorCarrito.innerHTML="";
-
 	const vacioContenedor =document.querySelector(".vacio")
 	vacioContenedor.innerHTML="";
 	const contenedorBoton = document.querySelector(".boton-total");
@@ -96,9 +95,15 @@ const mostrarCarrito = () => {
 		const div = document.createElement("div");
 		div.innerHTML=
 		`
-		<button  type="button" class="btn btn-dark btn-lg"  >Pagar</button>
+		<button id="pagar" type="button" class="btn btn-dark btn-lg"  >Pagar</button>
 		 `;
 		contenedorBoton.appendChild(div)
+
+		const pagar = document.getElementById("pagar");
+		pagar.addEventListener("click",pagarProducto)
+		
+
+
 
 		const vaciar = document.createElement("vaciar");
 		vaciar.innerHTML=
@@ -178,7 +183,35 @@ function vaciarCarrito1(){
 	actualizarTotal();
 }
 
+function pagarProducto(){
+	Swal.fire({
+		title: 'Estas seguro de realizar la compra?',
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Si, estoy seguro!'
+	  }).then((result) => {
+		if (result.isConfirmed) {
+		  Swal.fire(
+			'Listo!',
+			'Tu compra se a realizado con exito.',
+			'success'
 
-actualizarTotal();
-pintarCards(productos);
-mostrarCarrito();
+		  )
+		  vaciarCarrito1()
+		}
+	  })
+}
+
+
+
+fetch("/productos.json")
+	.then((response) => response.json())
+	.then((productos) => {
+	
+		
+		actualizarTotal();
+		pintarCards(productos);
+		mostrarCarrito();
+	});
